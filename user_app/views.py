@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
 from django.contrib import messages
 import bcrypt
 
 from .models import User
-
+    
 def home(request):
+    print(request.user.is_authenticated)    
     return render(request, "index.html")
+        
 
 def register(request):
     return render(request, 'register.html')
@@ -29,4 +32,8 @@ def registerUser(request):
         user = User.objects.create(
                 first_name = first_name, last_name = last_name, email = email, password = pw_hash
         )
-    return redirect('home')
+        print(user.id, user.first_name, user.last_name, user.email, user.password)
+
+        login(request, user)
+
+        return redirect('home')

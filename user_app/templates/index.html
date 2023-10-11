@@ -6,7 +6,11 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Hello, home!</h1>
+    {% if request.user.is_authenticated %}
+        <p>Welcome, {{ request.user.first_name }}!</p>
+    {% else %}
+        <p>Welcome, guest!</p>
+    {% endif %}
     <h1><a href="{% url 'register' %}">New User?</a></h1>
 </body>
 </html>

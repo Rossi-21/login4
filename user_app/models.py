@@ -29,6 +29,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=256)
     email = models.CharField(max_length=256)
     password = models.CharField(max_length=256)
+    last_login = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
