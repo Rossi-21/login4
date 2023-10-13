@@ -55,19 +55,31 @@ def loginPage(request):
 def loginUser(request):
     if request.method == 'POST':
         
-        user = User.objects.get(email = request.POST['email'])
+        try:
+            user = User.objects.get(email = request.POST['email']) if User.objects.filter(email = request.POST['email']).exists() else ModuleNotFoundError
 
+        except:
+            error_message = 'Invalid email or password'
+            return render(request, 'login.html', {'error_message': error_message})
+        
         if user:
 
             if bcrypt.checkpw(request.POST['password'].encode(), user.password.encode()):
                 
                 request.session['userid'] = user.id
+                request.session['first_name'] = user.first_name
                 
                 return redirect('home')
 
             else:
-                return redirect('login')
+                error_message = 'Invalid email or password'
+                return render(request, 'login.html', {'error_message': error_message})
+            
+        else:
+            return redirect('login')
 
-
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
    
     
