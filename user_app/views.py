@@ -7,14 +7,20 @@ import bcrypt
 from .models import User
     
 def home(request):
-
     user_id = request.session.get('user_id')
-    first_name = request.session.get('first_name')
 
-    context = {
-        'user_id' : user_id,
-        'first_name' : first_name
-    }
+    if user_id is not None:
+       
+        user = User.objects.get(id=user_id)
+       
+        context = {
+            'user' : user,
+            'is_authenticated' : True,
+        }
+    else :
+        context = {
+            'is_authenticted' : False,
+        }
 
     return render(request, "index.html", context)
         
@@ -41,10 +47,7 @@ def registerUser(request):
                 first_name = first_name, last_name = last_name, email = email, password = pw_hash
         )
         
-        request.session['user_id'] = user.id
-        request.session['first_name'] = user.first_name 
-
-        print(user.id, user.first_name, user.last_name, user.email, user.password)
+        request.session['user_id'] = user.id 
 
         return redirect('home')
 
@@ -64,7 +67,6 @@ def loginUser(request):
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
                 
                 request.session['userid'] = logged_user.id
-                request.session['first_name'] = logged_user.first_name
                 
                 return redirect('home')
 
@@ -79,6 +81,6 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
    
     
