@@ -17,8 +17,16 @@ class UserManager(models.Manager):
             r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invaild email address!"
+        # check if the email is already in the database
+        if User.objects.filter(email=postData['email']):
+            # if the email is in the database display an error message that says "email already in use"
+            errors['email'] = 'Email is already in use'  
         if len(postData['password']) < 5:
             errors['password'] = 'Password must be at least 4 characters'
+        if not re.search(r'[A-Z]', postData['password']):
+            errors['password'] = 'Password must contain at least one capital letter'
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]',postData['password']):
+            errors['password'] = 'Password must contain at least one symbol'
         if postData['password'] != postData['confirmPw']:
             errors['confirmPw'] = 'Passwords must match'
 
