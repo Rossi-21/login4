@@ -8,6 +8,8 @@
 <body>
     {% if is_authenticated %}
         <p>Welcome, {{user.first_name}}!</p>
+        <a href="{% url 'api' %}">Api</a>
+        <br>
         <a href="{% url 'logout' %}">logout</a>
     {% else %}
         <h1><a href="{% url 'register' %}">New User?</a></h1>

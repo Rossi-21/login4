@@ -1,6 +1,6 @@
 from argparse import RawTextHelpFormatter
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import logout
 from django.contrib import messages
 import bcrypt
 
@@ -23,6 +23,26 @@ def home(request):
         }
 
     return render(request, "index.html", context)
+
+def api(request):
+    user_id = request.session.get('user_id')
+    
+    if user_id is not None:
+        
+        user = User.objects.get(id=user_id)
+       
+        context = {
+            'user' : user,
+            'is_authenticated' : True,
+        }
+
+    else:
+
+        context = {
+            'is_authenticated' : False
+        }
+        
+    return render(request, "api.html", context)
         
 def registerPage(request):
     return render(request, 'register.html')
