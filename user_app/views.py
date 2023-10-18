@@ -2,7 +2,7 @@ from argparse import RawTextHelpFormatter
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
-import bcrypt
+import bcrypt, requests
 
 from .models import User
     
@@ -30,18 +30,32 @@ def api(request):
     if user_id is not None:
         
         user = User.objects.get(id=user_id)
-       
+
+        url = "https://deezerdevs-deezer.p.rapidapi.com/search" 
+
+        querystring = {"q" : "madonna"}
+
+        headers = {
+            "X-RapidAPI-Key": "d26b68b831mshee6252d6f596895p1d9c4cjsna0ce87ce3bea",
+            "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
+            }   
+
+        response = requests.get(url, headers=headers, params=querystring)
+        data = response.json()
+        print(response.json())      
+
         context = {
             'user' : user,
             'is_authenticated' : True,
+            'data': data,
         }
 
     else:
-
+        return redirect('login')
         context = {
             'is_authenticated' : False
         }
-        
+
     return render(request, "api.html", context)
         
 def registerPage(request):
