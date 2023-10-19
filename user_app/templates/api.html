@@ -8,6 +8,10 @@
 <body>
     <h1>Hello Api,</h1>
 
-    <p>{{data}}</p>
+    {% for i in data %}
+        <p>{{ i.title }}</p>
+    {% endfor %}
+
+    {{data}}
 </body>
 </html>

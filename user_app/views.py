@@ -1,8 +1,8 @@
-from argparse import RawTextHelpFormatter
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 import bcrypt, requests
+
 
 from .models import User
     
@@ -36,13 +36,13 @@ def api(request):
         querystring = {"q" : "madonna"}
 
         headers = {
-            "X-RapidAPI-Key": "d26b68b831mshee6252d6f596895p1d9c4cjsna0ce87ce3bea",
+            "X-RapidAPI-Key": "d26b68b831mshee6252d6f596895p1d9c4cjsna0ce87ce3bea" ,
             "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
             }   
 
         response = requests.get(url, headers=headers, params=querystring)
         data = response.json()
-        print(response.json())      
+              
 
         context = {
             'user' : user,
