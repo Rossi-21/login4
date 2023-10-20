@@ -8,10 +8,13 @@
 <body>
     <h1>Hello Api,</h1>
 
-    {% for i in data %}
-        <p>{{ i.title }}</p>
+    {% for track in data.data %}
+        <li>
+            <strong>Title: {{ track.title }}</strong><br>
+            Artist: {{ track.artist.name }}<br>
+            Duration: {{ track.duration }} seconds<br>
+            <a href="{{ track.link }}" target="_blank">Listen on Deezer</a>
+        </li>
     {% endfor %}
-
-    {{data}}
 </body>
 </html>
