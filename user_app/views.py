@@ -33,7 +33,8 @@ def api(request):
 
         url = "https://deezerdevs-deezer.p.rapidapi.com/search" 
 
-        querystring = {"q" : "madonna"}
+        search = request.GET.get('search')
+        querystring = {"q" : search}
 
         headers = {
             "X-RapidAPI-Key": "d26b68b831mshee6252d6f596895p1d9c4cjsna0ce87ce3bea" ,
@@ -42,7 +43,6 @@ def api(request):
 
         response = requests.get(url, headers=headers, params=querystring)
         data = response.json()
-              
 
         context = {
             'user' : user,

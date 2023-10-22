@@ -8,11 +8,17 @@
 <body>
     <h1>Hello Api,</h1>
 
+    <form action="" method="GET">
+        <input type="text" name="search">
+        <button type="submit" value="search">Search</button>
+    </form>
+
     {% for track in data.data %}
         <li>
             <strong>Title: {{ track.title }}</strong><br>
             Artist: {{ track.artist.name }}<br>
             Duration: {{ track.duration }} seconds<br>
+            <img src="{{track.artist.picture_small}}" alt="picture of the aritist"><br>
             <a href="{{ track.link }}" target="_blank">Listen on Deezer</a>
         </li>
     {% endfor %}
