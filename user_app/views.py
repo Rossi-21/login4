@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.conf import settings
 import bcrypt, requests
 
-
 from .models import User
-    
+
+api_key = settings.API_KEY
+
 def home(request):
     user_id = request.session.get('user_id')
 
@@ -37,7 +39,7 @@ def api(request):
         querystring = {"q" : search}
 
         headers = {
-            "X-RapidAPI-Key": "d26b68b831mshee6252d6f596895p1d9c4cjsna0ce87ce3bea" ,
+            "X-RapidAPI-Key": api_key ,
             "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
             }   
 
