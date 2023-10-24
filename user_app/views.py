@@ -12,9 +12,9 @@ def home(request):
     user_id = request.session.get('user_id')
 
     if user_id is not None:
-       
+    
         user = User.objects.get(id=user_id)
-       
+    
         context = {
             'user' : user,
             'is_authenticated' : True,
@@ -53,7 +53,6 @@ def api(request):
         }
 
     else:
-        return redirect('login')
         context = {
             'is_authenticated' : False
         }

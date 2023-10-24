@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API</title>
-</head>
-<body>
-    <h1>Hello Api,</h1>
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
 
-    <form action="" method="GET">
-        <input type="text" name="search">
-        <button type="submit" value="search">Search</button>
-    </form>
+<div class="container-fluid">
+    <div class="container-fluid border border-dark">
+        <h1>Music Search</h1>
+        <form action="" method="GET">
+            <input type="text" name="search">
+            <button type="submit" value="search">Search</button>
+        </form>
+    </div>
+    
 
     {% for track in data.data %}
         <li>
@@ -22,5 +21,7 @@
             <a href="{{ track.link }}" target="_blank">Listen on Deezer</a>
         </li>
     {% endfor %}
-</body>
-</html>
+</div>
+    
+
+{% endblock %}
