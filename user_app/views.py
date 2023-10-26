@@ -109,7 +109,7 @@ def loginUser(request):
             # check the password against the password stored in the database for the logged_user
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
                 # place their user id into session
-                request.session['userid'] = logged_user.id
+                request.session['user_id'] = logged_user.id
                 
                 return redirect('home')
 
