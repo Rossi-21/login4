@@ -3,24 +3,30 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="container-fluid">
-        <h3>Music Search</h3>
-        <form action="" method="GET">
-            <input type="text" name="search">
-            <button type="submit" value="search">Search</button>
-        </form>
-        {% for track in data.data %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{track.artist.picture_medium}}" alt="picture of the aritist"><br>
-                <div class="card-body">
-                    <strong>Title: {{ track.title }}</strong><br>
-                    Artist: {{ track.artist.name }}<br>
-                    Duration: {{ track.duration }} seconds<br>
-                    <a href="{{ track.link }}" target="_blank">Listen on Deezer</a>
+    <div class="row">
+        <div class="col side-column m-2">
+        </div>
+        <div class="col-6 column m-2">
+            <h3>Music Search</h3>
+            <form action="" method="GET">
+                <input type="text" name="search">
+                <button type="submit" value="search">Search</button>
+            </form>
+            {% for track in data.data %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{{track.artist.picture_medium}}" alt="picture of the aritist"><br>
+                    <div class="card-body">
+                        <strong>Title: {{ track.title }}</strong><br>
+                        Artist: {{ track.artist.name }}<br>
+                        Duration: {{ track.duration }} seconds<br>
+                        <a href="{{ track.link }}" target="_blank">Listen on Deezer</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>    
+        <div class="col side-column m-2">
+        </div>
+    </div>    
 </div>
     
 

@@ -1,8 +1,25 @@
 body{
     background-color: #023047 ;
-    color: #FB8500 ;
+    color: #FB8500;
+    padding: 1em;
 }
 
 .user-name{
-    margin-right: 1rem;
+    margin-right: 1vw;
 }
+
+.column, .side-column{
+    background-color:#219EBC;
+    border-radius: 30px;
+}
+
+.my-nav{
+    background-color:#219EBC;
+    border-radius: 15px;
+}
+
+a{
+    color: #FB8500;
+}
+
+
