@@ -26,14 +26,8 @@ a{
     color: #219EBC ;
 }
 
-.search{
-    margin-left: 1em;
-    width: 400px;
-    max-width: 100%;
-    position: relative;
-}
 
-.search input{
+#search-input{
     border: 2px solid white;
     background-color: #8ECAE6 ;
     border-radius: 50px;
@@ -41,15 +35,6 @@ a{
     width: 100%;
 }
 
-.search button{
-    background-color: white;
-    border-radius: 50%;
-    height: 100%;
-    aspect-ratio: 1;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
 
 .material-symbols-outlined {
   font-variation-settings:
