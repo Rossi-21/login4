@@ -12,7 +12,7 @@
                     <input id="search-input" class="form-control" type="text" name="search" placeholder="What do you want to listen to?">
                 </form>
             </div>
-            
+            <div class="search-results"></div>
             {% for track in data.data %}
                 <div class="card m-3">
                     <img src="{{track.album.cover_xl}}" alt="picture of the aritist"><br>

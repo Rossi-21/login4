@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 import bcrypt, requests
 
 from .models import User
@@ -32,25 +34,32 @@ def api(request):
     if user_id is not None:
         
         user = User.objects.get(id=user_id)
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            url = "https://deezerdevs-deezer.p.rapidapi.com/search" 
 
-        url = "https://deezerdevs-deezer.p.rapidapi.com/search" 
+            search = request.GET.get('search')
+            querystring = {"q" : search}
 
-        search = request.GET.get('search')
-        querystring = {"q" : search}
+            headers = {
+                "X-RapidAPI-Key": api_key ,
+                "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
+                }   
 
-        headers = {
-            "X-RapidAPI-Key": api_key ,
-            "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com"
-            }   
+            response = requests.get(url, headers=headers, params=querystring)
+            data = response.json()
 
-        response = requests.get(url, headers=headers, params=querystring)
-        data = response.json()
+            search_results = render_to_string('search_results.html', {'data' : data})
 
-        context = {
-            'user' : user,
-            'is_authenticated' : True,
-            'data': data,
-        }
+            context = {
+                'user' : user,
+                'is_authenticated' : True,
+                'data': data,
+            }
+
+            return JsonResponse({'search_results' : search_results})
+        
+        else:
+            return render(request, 'api.html')
 
     else:
         context = {
