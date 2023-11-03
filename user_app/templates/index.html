@@ -1,6 +1,37 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<h1> Hello World!</h1>
-
+{% if is_authenticated %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col side-column m-2">
+            </div>
+            <div class="col-6 column m-2 p-3">
+                <div class="search mt-2">  
+                    <h1>New Tracks</h1>
+                    {% for track in data %}
+                        <p>{{ track.title }}</p>
+                        <p>{{ track.artist.name }} </p>
+                    {% endfor %}
+                </div>
+            </div>    
+            <div class="col side-column m-2">
+            </div>
+        </div>    
+    </div>
+{% else %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col side-column m-2">
+            </div>
+            <div class="col-6 column m-2 p-3">
+                <div class="search mt-2">  
+                    <h1>Please <a href="{% url 'register' %}">Register</a></h1>
+                </div>
+            </div>    
+            <div class="col side-column m-2">
+            </div>
+        </div>    
+    </div>
+{% endif %}
 {% endblock %}
