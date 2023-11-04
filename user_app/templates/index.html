@@ -9,10 +9,16 @@
             <div class="col-6 column m-2 p-3">
                 <div class="search mt-2">  
                     <h1>New Tracks</h1>
-                    {% for track in data %}
-                        <p>{{ track.title }}</p>
-                        <p>{{ track.artist.name }} </p>
-                    {% endfor %}
+                    <div class="card m-3">
+                    <img src="{{track.album.cover_xl}}" alt="picture of the album cover"><br>
+                    <div class="card-body">
+                        <strong>Title: {{ track.title }}</strong><br>
+                        Artist: {{ track.artist.name }}<br>
+                        Duration: {{ track.duration }} seconds<br>
+                        <a class="track-link" href="{{ track.link }}" target="_blank">Listen on Deezer</a>
+                        <br>
+            
+                    </div>
                 </div>
             </div>    
             <div class="col side-column m-2">

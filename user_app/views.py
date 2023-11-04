@@ -35,7 +35,7 @@ def home(request):
         context = {
             'user' : user,
             'is_authenticated' : True,
-            'data' : data
+            'track' : data,
         }
     else :
         context = {
