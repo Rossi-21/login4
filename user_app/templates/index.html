@@ -19,26 +19,13 @@
             </div>
             <div class="col-6 column m-2 p-3">
                 <div class="search mt-2">  
-                    <h1>Please <a href="{% url 'register' %}">Register</a></h1>
+                    <h1>I'm sorry Hal, I can't let you do that.</h1>
+                    <h2>Please <a href="{% url 'register' %}">Register</a></h2>
                 </div>
             </div>    
             <div class="col side-column m-2">
             </div>
         </div>    
-    </div>
-    <div class="col-6 column m-2 p-3">
-        <div class="search mt-2">  
-            <h1>New Tracks</h1>
-            <div class="card m-3">
-            <img src="{{track.album.cover_xl}}" alt="picture of the album cover"><br>
-            <div class="card-body">
-                <strong>Title: {{ track.title }}</strong><br>
-                Artist: {{ track.artist.name }}<br>
-                Duration: {{ track.duration }} seconds<br>
-                <a class="track-link" href="{{ track.link }}" target="_blank">Listen on Deezer</a>
-                <br>
-            </div>
-        </div>
-    </div>  
+    </div> 
 {% endif %}
 {% endblock %}

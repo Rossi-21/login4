@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.conf import settings
 import bcrypt, requests
 
-from .models import User
+from .models import User, Track, Album, Artist
 
 api_key = settings.API_KEY
 
@@ -64,12 +64,44 @@ def api(request):
         response = requests.get(url, headers=headers, params=querystring)
         data = response.json()
 
+        track_data = data['data'][0]
+        artist_data = track_data['artist']
+        album_data = track_data['album']
+
+        track = Track.objects.create(
+            title = track_data['title'],
+            link = track_data['link'],
+            duration = track_data['duration'],
+            preiview = track_data['preview'],
+
+        )
+
+        artist = Artist.objects.create(
+            name = artist_data['name'],
+            link = artist_data['link'],
+            tracklist = artist_data['tracklist'],
+            picture = artist_data['picture'],
+            picture_small = artist_data['picture_small'],
+            picture_medium = artist_data['picture_medium'],
+            picture_big = artist_data['picture_big']
+        )
+
+        album = Album.objects.create(
+            title = album_data['title'],
+            cover = album_data['cover'],
+            cover_small = album_data['cover_small'],
+            cover_medium = album_data['cover_medium'],
+            cover_big = album_data['cover_big']
+        )
         
 
         context = {
             'user' : user,
             'is_authenticated' : True,
             'data': data,
+            'track' : track,
+            'artist' : artist,
+            'album' : album
         }
 
     else:

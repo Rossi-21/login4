@@ -29,25 +29,7 @@ class UserManager(models.Manager):
             errors['confirmPw'] = 'Passwords must match'
 
         return errors
-    
-class User(models.Model):
-    first_name = models.CharField(max_length=256)
-    last_name = models.CharField(max_length=256)
-    email = models.CharField(max_length=256)
-    password = models.CharField(max_length=256)
-    last_login = models.DateTimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = UserManager()
 
-class Artist(models.Model):
-    name = models.CharField(max_length=256)
-    link = models.URLField()
-    tracklist = models.URLField
-    picture = models.URLField()
-    picture_small = models.URLField()
-    picture_medium = models.URLField()
-    picture_big = models.URLField()
 class Track(models.Model):
     title = models.CharField(max_length=256)
     link = models.URLField()
@@ -59,8 +41,20 @@ class Track(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.title  
 
+class Artist(models.Model):
+    name = models.CharField(max_length=256)
+    link = models.URLField()
+    tracklist = models.URLField
+    picture = models.URLField()
+    picture_small = models.URLField()
+    picture_medium = models.URLField()
+    picture_big = models.URLField()
+
+    def __str__(self):
+        return self.name
+    
 class Album(models.Model):
     title = models.CharField(max_length=256)
     cover = models.URLField()
@@ -69,6 +63,23 @@ class Album(models.Model):
     cover_big = models.URLField()
 
     def __str__(self):
-        return self.title
+        return self.title  
+class User(models.Model):
+    first_name = models.CharField(max_length=256)
+    last_name = models.CharField(max_length=256)
+    email = models.CharField(max_length=256)
+    password = models.CharField(max_length=256)
+    last_login = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    favorite_tracks = models.ManyToManyField(Track, related_name='users_who_like', blank=True)
+    favorite_artist = models.ManyToManyField(Artist, related_name='users_who_like', blank=True)
+    favorite_album = models.ManyToManyField(Album, related_name='users_who_like', blank=True )
+    objects = UserManager()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+    
+
 
 
